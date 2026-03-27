@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="section-title">Gallery</h1>
+{% if people %}
+  <div class="grid">
+    {% for person in people %}
+      <div class="card">
+        {% if person.preview_path %}
+          <img class="preview" src="/{{ person.preview_path }}" alt="{{ person.display_name }}">
+        {% else %}
+          <div class="preview"></div>
+        {% endif %}
+        <h3>{{ person.display_name }}</h3>
+        <p class="muted">{{ person.person_id }}</p>
+        <p>{{ person.images|length }} file(s)</p>
+        <ul>
+          {% for image in person.images[:5] %}
+            <li>{{ image }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="card">
+    <p>No people found yet.</p>
+    <p><a href="/upload">Upload photos or archives</a></p>
+  </div>
+{% endif %}
+{% endblock %}
